@@ -1,0 +1,155 @@
+swagger: "2.0"
+info:
+  description: "SpareMoney API Document"
+  version: "1.0.0"
+  title: "SpareMoney"
+host: "127.0.0.1:8000"
+basePath: "/"
+
+tags:
+- name: "Account"
+  description: "账户"
+- name: "Assignment"
+  description: "任务"
+- name: "Questionnaire"
+  description: "问卷"
+- name: 'System'
+  description: '系统'
+schemes:
+- "http"
+
+paths:
+  /account:
+    post:
+      tags:
+      - "Account"
+      summary: "注册账户"
+      consumes:
+      - 'multipart/form-data'
+      produces:
+      - "application/json"
+      parameters:
+      - in: 'formData'
+        name: 'email'
+        type: 'string'
+        description: '邮箱'
+        required: true
+      - in: 'formData'
+        name: 'password'
+        type: 'string'
+        description: '密码'
+        required: true
+      - in: 'formData'
+        name: 'class'
+        type: 'integer'
+        description: '学生/组织'
+        required: true
+      - in: 'formData'
+        name: 'nickname'
+        type: 'string'
+        description: '昵称'
+        required: true
+      responses:
+        200:
+          description: "ok"
+        400:
+          description: "fail"
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /account/self:
+    get:
+      tags:
+      - 'Account'
+      summary: '获取自身账户信息'
+      responses:
+        200:
+          description: 'ok'
+          schema:
+            $ref: '#/definitions/UserInfoResponse'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+    put:
+      tags:
+      - 'Account'
+      summary: '修改自身账户信息'
+      parameters:
+      - in: 'body'
+        name: 'body'
+        description: '账户信息'
+        required: true
+        schema:
+          type: 'object'
+          properties:
+            password:
+              type: 'string'
+            nickname:
+              type: 'string'
+      responses:
+        200:
+          description: 'ok'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /image:
+    post:
+      tags:
+      - "System"
+      summary: "上传图片"
+      consumes:
+      - 'multipart/form-data'
+      parameters:
+      - in: 'formData'
+        name: 'image'
+        type: 'file'
+        description: '图片'
+        required: true
+      responses:
+        200:
+          description: "ok"
+          schema:
+            $ref: '#/definitions/ImageURLResponse'
+        400:
+          description: "fail"
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+  
+definitions:
+
+  ErrorResponse:
+    type: "object"
+    properties:
+      msg:
+        type: "string"
+
+  User:
+    type: 'object'
+    properties:
+      email:
+        type: 'string'
+      class:
+        type: 'integer'
+      nickname:
+        type: 'string'
+
+  UserInfoResponse:
+    allOf:
+    - properties:
+        user_id:
+          type: 'integer'
+    - $ref: '#/definitions/User'
+
+  ImageURLResponse:
+    type: 'object'
+    properties:
+      url:
+        type: 'string'
+  
+externalDocs:
+  description: "api.yaml"
+  url: "http://swagger.io"
