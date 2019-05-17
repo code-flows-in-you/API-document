@@ -1,33 +1,33 @@
-swagger: "2.0"
+swagger: '2.0'
 info:
-  description: "SpareMoney API Document"
-  version: "1.0.0"
-  title: "SpareMoney"
-host: "127.0.0.1:8000"
-basePath: "/"
+  description: 'SpareMoney API Document'
+  version: '1.0.0'
+  title: 'SpareMoney'
+host: '127.0.0.1:8000'
+basePath: '/'
 
 tags:
-- name: "Account"
-  description: "账户"
-- name: "Assignment"
-  description: "任务"
-- name: "Questionnaire"
-  description: "问卷"
+- name: 'Account'
+  description: '账户'
+- name: 'Assignment'
+  description: '任务'
+- name: 'Questionnaire'
+  description: '问卷'
 - name: 'System'
   description: '系统'
 schemes:
-- "http"
+- 'http'
 
 paths:
   /account:
     post:
       tags:
-      - "Account"
-      summary: "注册账户"
+      - 'Account'
+      summary: '注册账户'
       consumes:
       - 'multipart/form-data'
       produces:
-      - "application/json"
+      - 'application/json'
       parameters:
       - in: 'formData'
         name: 'email'
@@ -51,9 +51,9 @@ paths:
         required: true
       responses:
         200:
-          description: "ok"
+          description: 'ok'
         400:
-          description: "fail"
+          description: 'fail'
           schema:
             $ref: '#/definitions/ErrorResponse'
 
@@ -96,11 +96,26 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
 
-  /image:
+  /account/{uid}:
+    get:
+      tags:
+      - 'Account'
+      summary: '获取id为uid的账户信息'
+      responses:
+        200:
+          description: 'ok'
+          schema:
+            $ref: '#/definitions/UserInfoResponse'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /system/image:
     post:
       tags:
-      - "System"
-      summary: "上传图片"
+      - 'System'
+      summary: '上传图片'
       consumes:
       - 'multipart/form-data'
       parameters:
@@ -111,21 +126,209 @@ paths:
         required: true
       responses:
         200:
-          description: "ok"
+          description: 'ok'
           schema:
             $ref: '#/definitions/ImageURLResponse'
         400:
-          description: "fail"
+          description: 'fail'
           schema:
             $ref: '#/definitions/ErrorResponse'
   
+  /account/session:
+    post:
+      tags:
+      - 'Account'
+      summary: '登录'
+      consumes:
+      - 'application/json'
+      produces:
+      - 'application/json'
+      parameters:
+      - in: 'body'
+        name: 'body'
+        description: '登录信息'
+        required: true
+        schema:
+          $ref: '#/definitions/LoginRequest'
+      responses:
+        200:
+          description: 'ok'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+    delete:
+      tags:
+      - 'Account'
+      summary: '登出'
+      produces:
+      - 'application/json'
+      responses:
+        200:
+          description: 'ok'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /assignment:
+    get:
+      tags:
+      - 'Assignment'
+      summary: '获取最近20个任务'
+      responses:
+        200:
+          description: 'ok'
+          schema:
+            $ref: '#/definitions/AssignmentInfoResponse'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /assignment/{pages}:
+    get:
+      tags:
+      - 'Assignment'
+      summary: '获取第pages页的20个任务'
+      parameters:
+      - name: 'pages'
+        in: 'path'
+        required: true
+        description: '页数'
+        type: 'integer'
+      responses:
+        200:
+          description: 'ok'
+          schema:
+            $ref: '#/definitions/AssignmentInfoResponse'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /questionnaire/{aid}:
+    get:
+      tags:
+      - 'Questionnaire'
+      summary: '获取id=aid的问卷'
+      parameters:
+      - name: 'aid'
+        in: 'path'
+        required: true
+        description: 'aid'
+        type: 'integer'
+      responses:
+        200:
+          description: 'ok'
+          schema:
+            $ref: '#/definitions/QuestionnaireInfoResponse'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+    post:
+      tags:
+      - 'Questionnaire'
+      summary: '提交问卷'
+      consumes:
+      - 'application/json'
+      produces:
+      - 'application/json'
+      parameters:
+      - name: 'aid'
+        in: 'path'
+        required: true
+        description: 'aid'
+        type: 'integer'
+      - in: 'body'
+        name: 'body'
+        description: '问卷答案信息'
+        required: true
+        schema:
+          $ref: '#/definitions/QuestionnaireAnsRequest'
+      responses:
+        200:
+          description: 'ok'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+    delete:
+      tags:
+      - 'Questionnaire'
+      summary: '删除问卷'
+      produces:
+      - 'application/json'
+      parameters:
+      - name: 'aid'
+        in: 'path'
+        required: true
+        description: 'aid'
+        type: 'integer'
+      responses:
+        200:
+          description: 'ok'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /questionnaire:
+    post:
+      tags:
+      - 'Questionnaire'
+      summary: '发布一个问卷类型的任务'
+      consumes:
+      - 'application/json'
+      produces:
+      - 'application/json'
+      parameters:
+      - in: 'body'
+        name: 'body'
+        description: '问卷类型的任务信息'
+        required: true
+        schema:
+          $ref: '#/definitions/QuestionnaireInfoRequest'
+      responses:
+        200:
+          description: 'ok'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /questionnaire/answer/{aid}:
+    get:
+      tags:
+      - 'Questionnaire'
+      summary: '获取id=aid的问卷统计答案'
+      parameters:
+      - name: 'aid'
+        in: 'path'
+        required: true
+        description: 'aid'
+        type: 'integer'
+      responses:
+        200:
+          description: 'ok'
+          schema:
+            $ref: '#/definitions/AnswerInfoResponse'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
 definitions:
 
   ErrorResponse:
-    type: "object"
+    type: 'object'
     properties:
       msg:
-        type: "string"
+        type: 'string'
 
   User:
     type: 'object'
@@ -140,16 +343,160 @@ definitions:
   UserInfoResponse:
     allOf:
     - properties:
-        user_id:
+        uid:
           type: 'integer'
     - $ref: '#/definitions/User'
+
+  OtherUserInfoResponse:
+    type: 'object'
+    properties:
+      class:
+        type: 'integer'
+      nickname:
+        type: 'string'
 
   ImageURLResponse:
     type: 'object'
     properties:
       url:
         type: 'string'
+
+  LoginRequest:
+    type: 'object'
+    properties:
+      email:
+        type: 'string'
+      password:
+        type: 'string'
+
+  AssignmentInfoResponse:
+    type: 'array'
+    items:
+      type: 'object'
+      properties:
+        title:
+          type: 'string'
+        description:
+          type: 'string'
+        type: 
+          type: 'string'
+          enum:
+          - 'questionnaire'
+        aid:
+          type: 'integer'
+        creator:
+          type: 'string'
+        createTime:
+          type: 'string'
+        startTime:
+          type: 'string'
+        endTime:
+          type: 'string'
+
+  Question:
+    type: 'object'
+    properties:
+      qid:
+        type: 'integer'
+      titie:
+        type: 'string'
+      aid:
+        type: 'integer'
+      type:
+        type: 'string'
+        enum:
+        - 'single'
+        - 'multi'
+        - 'input'
+
+  Option:
+    type: 'object'
+    properties:
+      oid:
+        type: 'integer'
+      value:
+        type: 'string'
+      qid:
+        type: 'integer'
+      aid:
+        type: 'integer'
+
+  Answer:
+    type: 'object'
+    properties:
+      uid:
+        type: 'integer'
+      aid:
+        type: 'integer'
+      qid:
+        type: 'integer'
+      oid:
+        type: 'integer'
+      value:
+        type: 'string'
   
+  QuestionnaireInfoResponse:
+    allOf:
+    - $ref: '#/definitions/AssignmentInfoResponse'
+    - properties:
+        questions:
+          type: 'array'
+          items:
+            allOf:
+            - $ref: '#/definitions/Question'
+        options:
+          type: 'array'
+          items:
+            allOf:
+            - $ref: '#/definitions/Option'
+    # - properties:
+    #     data:
+    #       type: 'array'
+    #       items:
+    #         allOf:
+    #         - $ref: '#/definitions/Question'
+    #         - properties:
+    #             data:
+    #               type: 'array'
+    #               items:
+    #                 allOf:
+    #                 - $ref: '#/definitions/Option'
+            
+  QuestionnaireInfoRequest:
+    allOf:
+    - $ref: '#/definitions/AssignmentInfoResponse'
+    - properties:
+        questions:
+          type: 'array'
+          items:
+            allOf:
+            - $ref: '#/definitions/Question'
+        options:
+          type: 'array'
+          items:
+            allOf:
+            - $ref: '#/definitions/Option'
+
+  AnswerInfoResponse:
+    allOf:
+      - $ref: '#/definitions/QuestionnaireInfoRequest'
+      - properties:
+          oid1:
+            type: 'array'
+            items:
+              type: 'string'
+          oid2:
+            type: 'array'
+            items:
+              type: 'string'
+
+
+  QuestionnaireAnsRequest:
+    type: 'array'
+    items:
+      allOf:
+      - $ref: '#/definitions/Answer'
+
 externalDocs:
-  description: "api.yaml"
-  url: "http://swagger.io"
+  description: 'api.yaml'
+  url: 'http://swagger.io'
