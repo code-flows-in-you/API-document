@@ -75,7 +75,7 @@ paths:
     put:
       tags:
       - 'Account'
-      summary: '修改自身账户信息'
+      summary: '修改自身账户基本信息'
       parameters:
       - in: 'body'
         name: 'body'
@@ -84,10 +84,21 @@ paths:
         schema:
           type: 'object'
           properties:
-            password:
-              type: 'string'
+            # password:
+            #   type: 'string'
+            class:
+              type: 'integer'
             nickname:
               type: 'string'
+            grade:
+              type: 'string'
+            college:
+              type: 'string'
+            major:
+              type: 'string'
+            studentID:
+              type: 'string'
+
       responses:
         200:
           description: 'ok'
@@ -95,6 +106,57 @@ paths:
           description: 'fail'
           schema:
             $ref: '#/definitions/ErrorResponse'
+
+  /account/password:
+    put:
+      tags:
+      - 'Account'
+      summary: '修改自身账户密码'
+      parameters:
+      - in: 'body'
+        name: 'body'
+        description: '账户新旧密码'
+        required: true
+        schema:
+          type: 'object'
+          properties:
+            password:
+              type: 'string'
+            new_password:
+              type: 'string'
+
+      responses:
+        200:
+          description: 'ok'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /account/avatar:
+    post:
+      tags:
+      - 'Account'
+      summary: '修改自身账户头像'
+      consumes:
+      - 'multipart/form-data'
+      produces:
+      - 'application/json'
+      parameters:
+      - in: 'formData'
+        name: 'file'
+        type: 'file'
+        description: '账户新头像'
+        required: true
+
+      responses:
+        200:
+          description: 'ok'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
 
   /account/{uid}:
     get:
@@ -339,6 +401,16 @@ definitions:
         type: 'integer'
       nickname:
         type: 'string'
+      avatar:
+        type: 'string'
+      grade:
+        type: 'string'
+      college:
+        type: 'string'
+      major:
+        type: 'string'
+      studentID:
+        type: 'string'
 
   UserInfoResponse:
     allOf:
@@ -354,6 +426,17 @@ definitions:
         type: 'integer'
       nickname:
         type: 'string'
+      avatar:
+        type: 'string'
+      grade:
+        type: 'string'
+      college:
+        type: 'string'
+      major:
+        type: 'string'
+      studentID:
+        type: 'string'
+
 
   ImageURLResponse:
     type: 'object'
