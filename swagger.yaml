@@ -155,7 +155,9 @@ paths:
 
       responses:
         200:
-          description: 'ok'
+          description: 'ok, 返回头像url信息'
+          schema:
+            $ref: '#/definitions/ImageURLResponse'
         400:
           description: 'fail'
           schema:
