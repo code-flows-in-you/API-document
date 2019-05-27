@@ -492,6 +492,18 @@ definitions:
         - 'multi'
         - 'input'
 
+  QuestionRequest:
+    type: 'object'
+    properties:
+      titie:
+        type: 'string'
+      type:
+        type: 'string'
+        enum:
+        - 'single'
+        - 'multi'
+        - 'input'
+
   Option:
     type: 'object'
     properties:
@@ -503,6 +515,14 @@ definitions:
         type: 'integer'
       aid:
         type: 'integer'
+
+  OptionRequest:
+    type: 'object'
+    properties:
+      questionIndex:
+        type: 'integer'
+      value:
+        type: 'string'
 
   Answer:
     type: 'object'
@@ -520,18 +540,35 @@ definitions:
   
   QuestionnaireInfoResponse:
     allOf:
-    - $ref: '#/definitions/AssignmentInfoResponse'
+    # - $ref: '#/definitions/AssignmentInfoResponse'
     - properties:
+        title:
+          type: 'string'
+        description:
+          type: 'string'
+        type: 
+          type: 'string'
+          enum:
+          - 'questionnaire'
+          - 'qa'
+        creator:
+          type: 'string'
+        createTime:
+          type: 'string'
+        startTime:
+          type: 'string'
+        endTime:
+          type: 'string'
         questions:
           type: 'array'
           items:
             allOf:
-            - $ref: '#/definitions/Question'
+            - $ref: '#/definitions/QuestionRequest'
         options:
           type: 'array'
           items:
             allOf:
-            - $ref: '#/definitions/Option'
+            - $ref: '#/definitions/OptionRequest'
     # - properties:
     #     data:
     #       type: 'array'
