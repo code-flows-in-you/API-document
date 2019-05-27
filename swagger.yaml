@@ -13,6 +13,8 @@ tags:
   description: '任务'
 - name: 'Questionnaire'
   description: '问卷'
+- name: 'Question & Answer'
+  description: '懂了么'
 - name: 'System'
   description: '系统'
 schemes:
@@ -51,7 +53,9 @@ paths:
         required: true
       responses:
         200:
-          description: 'ok'
+          description: 'ok, 返回uid信息'
+          schema:
+            $ref: '#/definitions/IdResponse'
         400:
           description: 'fail'
           schema:
@@ -214,7 +218,9 @@ paths:
           $ref: '#/definitions/LoginRequest'
       responses:
         200:
-          description: 'ok'
+          description: 'ok, 返回uid信息'
+          schema:
+            $ref: '#/definitions/IdResponse'
         400:
           description: 'fail'
           schema:
@@ -357,7 +363,9 @@ paths:
           $ref: '#/definitions/QuestionnaireInfoRequest'
       responses:
         200:
-          description: 'ok'
+          description: 'ok, 返回任务aid'
+          schema:
+            $ref: '#/definitions/IdResponse'
         400:
           description: 'fail'
           schema:
@@ -379,6 +387,145 @@ paths:
           description: 'ok'
           schema:
             $ref: '#/definitions/AnswerInfoResponse'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /qa/{aid}:
+    get:
+      tags:
+      - 'Question & Answer'
+      summary: '获取id=aid的懂了么'
+      parameters:
+      - name: 'aid'
+        in: 'path'
+        required: true
+        description: 'aid'
+        type: 'integer'
+      responses:
+        200:
+          description: 'ok'
+          schema:
+            $ref: '#/definitions/QuestionnaireInfoResponse'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+    post:
+      tags:
+      - 'Question & Answer'
+      summary: '回答懂了么'
+      consumes:
+      - 'application/json'
+      produces:
+      - 'application/json'
+      parameters:
+      - name: 'aid'
+        in: 'path'
+        required: true
+        description: 'aid'
+        type: 'integer'
+      - in: 'body'
+        name: 'body'
+        description: '懂了么回答信息'
+        required: true
+        schema:
+          $ref: '#/definitions/QAnswerInfoRequest'
+      responses:
+        200:
+          description: 'ok 返回回答qaid信息'
+          schema:
+            $ref: '#/definitions/IdResponse'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+    delete:
+      tags:
+      - 'Question & Answer'
+      summary: '删除懂了么任务'
+      produces:
+      - 'application/json'
+      parameters:
+      - name: 'aid'
+        in: 'path'
+        required: true
+        description: 'aid'
+        type: 'integer'
+      responses:
+        200:
+          description: 'ok'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /qa:
+    post:
+      tags:
+      - 'Question & Answer'
+      summary: '发布一个懂了么的任务'
+      consumes:
+      - 'application/json'
+      produces:
+      - 'application/json'
+      parameters:
+      - in: 'body'
+        name: 'body'
+        description: '懂了么的任务信息'
+        required: true
+        schema:
+          $ref: '#/definitions/QAInfoRequest'
+      responses:
+        200:
+          description: 'ok, 返回任务aid'
+          schema:
+            $ref: '#/definitions/IdResponse'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /qa/best/{aid}:
+    delete:
+      tags:
+      - 'Question & Answer'
+      summary: '取消采纳懂了么回答'
+      produces:
+      - 'application/json'
+      parameters:
+      - name: 'aid'
+        in: 'path'
+        required: true
+        description: '懂了么任务的aid'
+        type: 'integer'
+      responses:
+        200:
+          description: 'ok'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /qa/answer/{qaid}:
+    delete:
+      tags:
+      - 'Question & Answer'
+      summary: '删除懂了么回答'
+      produces:
+      - 'application/json'
+      parameters:
+      - name: 'qaid'
+        in: 'path'
+        required: true
+        description: '懂了么回答的qaid'
+        type: 'integer'
+      responses:
+        200:
+          description: 'ok'
         400:
           description: 'fail'
           schema:
@@ -562,7 +709,6 @@ definitions:
           type: 'string'
           enum:
           - 'questionnaire'
-          - 'qa'
         creator:
           type: 'integer'
         createTime:
@@ -647,6 +793,104 @@ definitions:
     items:
       allOf:
       - $ref: '#/definitions/AnswerRequest'
+
+  QAInfoRequest:
+    allOf:
+    # - $ref: '#/definitions/AssignmentInfoResponse'
+    - properties:
+        title:
+          type: 'string'
+        description:
+          type: 'string'
+        type: 
+          type: 'string'
+          enum:
+          - 'qa'
+        creator:
+          type: 'integer'
+        createTime:
+          type: 'string'
+        startTime:
+          type: 'string'
+        endTime:
+          type: 'string'
+        detail:
+          type: 'string'
+
+  QAnswerRequest:
+    type: 'object'
+    properties:
+      uid:
+        type: 'integer'
+      answer:
+        type: 'string'
+
+  QAnswerResponse:
+    type: 'object'
+    properties:
+      uid:
+        type: 'integer'
+      aid:
+        type: 'integer'
+      qaid:
+        type: 'integer'
+      answer:
+        type: 'string'
+
+  QAnswerBestResponse:
+    type: 'object'
+    properties:
+      uid:
+        type: 'integer'
+      aid:
+        type: 'integer'
+      answer:
+        type: 'string'
+
+  QAnswerInfoRequest:
+    type: 'array'
+    items:
+      allOf:
+      - $ref: '#/definitions/QAnswerRequest'
+
+  QAInfoResponse:
+    allOf:
+    # - $ref: '#/definitions/AssignmentInfoResponse'
+    - properties:
+        title:
+          type: 'string'
+        description:
+          type: 'string'
+        type: 
+          type: 'string'
+          enum:
+          - 'qa'
+        aid:
+          type: 'integer'
+        creator:
+          type: 'string'
+        createTime:
+          type: 'string'
+        startTime:
+          type: 'string'
+        endTime:
+          type: 'string'
+        detail:
+          type: 'string'
+        best:
+          allOf:
+          - $ref: '#/definitions/QAnswerBestResponse'
+        answer:
+          type: 'array'
+          items:
+            allOf:
+            - $ref: '#/definitions/QAnswerResponse'
+
+  IdResponse:
+    type: 'object'
+    properties:
+      id:
+        type: 'integer'
 
 externalDocs:
   description: 'api.yaml'
