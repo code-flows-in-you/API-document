@@ -576,7 +576,9 @@ paths:
       summary: '充值100闲钱'
       responses:
         200:
-          description: 'ok'
+          description: 'ok, 返回闲钱数'
+          schema:
+            $ref: '#/definitions/CoinResponse'
         400:
           description: 'fail'
           schema:
@@ -587,11 +589,22 @@ paths:
       tags:
       - 'Coin'
       summary: '给予一些闲钱'
+      consumes:
+      - 'application/json'
+      produces:
+      - 'application/json'
+      parameters:
+      - in: 'body'
+        name: 'body'
+        description: '闲钱数量'
+        required: true
+        schema:
+          $ref: '#/definitions/CoinRequest'
       responses:
         200:
-          description: 'ok'
+          description: 'ok, 返回剩余闲钱'
           schema:
-            $ref: '#/definitions/CoinRequest'
+            $ref: '#/definitions/CoinResponse'
         400:
           description: 'fail'
           schema:
