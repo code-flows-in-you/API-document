@@ -537,8 +537,20 @@ definitions:
         type: 'integer'
       value:
         type: 'string'
+
+  AnswerRequest:
+    type: 'object'
+    properties:
+      uid:
+        type: 'integer'
+      qid:
+        type: 'integer'
+      oid:
+        type: 'integer'
+      value:
+        type: 'string'
   
-  QuestionnaireInfoResponse:
+  QuestionnaireInfoRequest:
     allOf:
     # - $ref: '#/definitions/AssignmentInfoResponse'
     - properties:
@@ -552,7 +564,7 @@ definitions:
           - 'questionnaire'
           - 'qa'
         creator:
-          type: 'string'
+          type: 'integer'
         createTime:
           type: 'string'
         startTime:
@@ -582,10 +594,29 @@ definitions:
     #                 allOf:
     #                 - $ref: '#/definitions/Option'
             
-  QuestionnaireInfoRequest:
+  QuestionnaireInfoResponse:
     allOf:
-    - $ref: '#/definitions/AssignmentInfoResponse'
+    # - $ref: '#/definitions/AssignmentInfoResponse'
     - properties:
+        title:
+          type: 'string'
+        description:
+          type: 'string'
+        type: 
+          type: 'string'
+          enum:
+          - 'questionnaire'
+          - 'qa'
+        aid:
+          type: 'integer'
+        creator:
+          type: 'string'
+        createTime:
+          type: 'string'
+        startTime:
+          type: 'string'
+        endTime:
+          type: 'string'
         questions:
           type: 'array'
           items:
@@ -615,7 +646,7 @@ definitions:
     type: 'array'
     items:
       allOf:
-      - $ref: '#/definitions/Answer'
+      - $ref: '#/definitions/AnswerRequest'
 
 externalDocs:
   description: 'api.yaml'
