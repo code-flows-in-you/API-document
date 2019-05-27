@@ -15,6 +15,8 @@ tags:
   description: '问卷'
 - name: 'Question & Answer'
   description: '懂了么'
+- name: 'Coin'
+  description: '闲钱'
 - name: 'System'
   description: '系统'
 schemes:
@@ -491,26 +493,26 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
 
-  /qa/best/{aid}:
-    delete:
-      tags:
-      - 'Question & Answer'
-      summary: '取消采纳懂了么回答'
-      produces:
-      - 'application/json'
-      parameters:
-      - name: 'aid'
-        in: 'path'
-        required: true
-        description: '懂了么任务的aid'
-        type: 'integer'
-      responses:
-        200:
-          description: 'ok'
-        400:
-          description: 'fail'
-          schema:
-            $ref: '#/definitions/ErrorResponse'
+  # /qa/best/{aid}:
+  #   delete:
+  #     tags:
+  #     - 'Question & Answer'
+  #     summary: '取消采纳懂了么回答'
+  #     produces:
+  #     - 'application/json'
+  #     parameters:
+  #     - name: 'aid'
+  #       in: 'path'
+  #       required: true
+  #       description: '懂了么任务的aid'
+  #       type: 'integer'
+  #     responses:
+  #       200:
+  #         description: 'ok'
+  #       400:
+  #         description: 'fail'
+  #         schema:
+  #           $ref: '#/definitions/ErrorResponse'
 
   /qa/answer/{qaid}:
     put:
@@ -548,6 +550,48 @@ paths:
       responses:
         200:
           description: 'ok'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /coin/self:
+    get:
+      tags:
+      - 'Coin'
+      summary: '获取自身闲钱数量'
+      responses:
+        200:
+          description: 'ok'
+          schema:
+            $ref: '#/definitions/CoinResponse'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+    post:
+      tags:
+      - 'Coin'
+      summary: '充值100闲钱'
+      responses:
+        200:
+          description: 'ok'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /coin/{uid}:
+    post:
+      tags:
+      - 'Coin'
+      summary: '给予一些闲钱'
+      responses:
+        200:
+          description: 'ok'
+          schema:
+            $ref: '#/definitions/CoinRequest'
         400:
           description: 'fail'
           schema:
@@ -634,10 +678,13 @@ definitions:
           type: 'string'
           enum:
           - 'questionnaire'
+          - 'qa'
         aid:
           type: 'integer'
         creator:
           type: 'string'
+        coin:
+          type: 'integer'
         createTime:
           type: 'string'
         startTime:
@@ -732,6 +779,8 @@ definitions:
           enum:
           - 'questionnaire'
         creator:
+          type: 'integer'
+        coin:
           type: 'integer'
         createTime:
           type: 'string'
@@ -830,6 +879,8 @@ definitions:
           - 'qa'
         creator:
           type: 'integer'
+        coin:
+          type: 'integer'
         createTime:
           type: 'string'
         startTime:
@@ -846,6 +897,8 @@ definitions:
         type: 'integer'
       answer:
         type: 'string'
+      time:
+        type: 'string'
 
   QAnswerResponse:
     type: 'object'
@@ -858,6 +911,8 @@ definitions:
         type: 'integer'
       answer:
         type: 'string'
+      time:
+        type: 'string'
 
   QAnswerBestResponse:
     type: 'object'
@@ -867,6 +922,8 @@ definitions:
       aid:
         type: 'integer'
       answer:
+        type: 'string'
+      time:
         type: 'string'
 
   QAnswerInfoRequest:
@@ -912,6 +969,18 @@ definitions:
     type: 'object'
     properties:
       id:
+        type: 'integer'
+
+  CoinResponse:
+    type: 'object'
+    properties:
+      coin:
+        type: 'integer'
+
+  CoinRequest:
+    type: 'object'
+    properties:
+      coin:
         type: 'integer'
 
 externalDocs:
