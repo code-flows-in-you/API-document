@@ -511,6 +511,26 @@ paths:
             $ref: '#/definitions/ErrorResponse'
 
   /qa/answer/{qaid}:
+    put:
+      tags:
+      - 'Question & Answer'
+      summary: '采纳懂了么回答'
+      produces:
+      - 'application/json'
+      parameters:
+      - name: 'qaid'
+        in: 'path'
+        required: true
+        description: '懂了么回答的qaid'
+        type: 'integer'
+      responses:
+        200:
+          description: 'ok'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
     delete:
       tags:
       - 'Question & Answer'
