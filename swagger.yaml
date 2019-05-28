@@ -679,31 +679,34 @@ definitions:
         type: 'string'
 
   AssignmentInfoResponse:
-    type: 'array'
-    items:
-      type: 'object'
-      properties:
-        title:
-          type: 'string'
-        description:
-          type: 'string'
-        type: 
-          type: 'string'
-          enum:
-          - 'questionnaire'
-          - 'qa'
-        aid:
-          type: 'integer'
-        creator:
-          type: 'string'
-        coin:
-          type: 'integer'
-        createTime:
-          type: 'string'
-        startTime:
-          type: 'string'
-        endTime:
-          type: 'string'
+    type: 'object'
+    properties:
+      assignments:
+        type: 'array'
+        items:
+          type: 'object'
+          properties:
+            title:
+              type: 'string'
+            description:
+              type: 'string'
+            type: 
+              type: 'string'
+              enum:
+              - 'questionnaire'
+              - 'qa'
+            aid:
+              type: 'integer'
+            creator:
+              type: 'string'
+            coin:
+              type: 'integer'
+            createTime:
+              type: 'string'
+            startTime:
+              type: 'string'
+            endTime:
+              type: 'string'
 
   Question:
     type: 'object'
@@ -873,6 +876,10 @@ definitions:
             items:
               type: 'object'
               properties:
+                user:
+                  type: 'string'
+                  enum:
+                  - 'UserID@Nickname'
                 value:
                   type: 'string'
                 timestamp:
@@ -882,6 +889,10 @@ definitions:
             items:
               type: 'object'
               properties:
+                user:
+                  type: 'string'
+                  enum:
+                  - 'UserID@Nickname'
                 value:
                   type: 'string'
                 timestamp:
