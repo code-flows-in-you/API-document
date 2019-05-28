@@ -848,7 +848,7 @@ definitions:
           type: 'integer'
         creator:
           type: 'string'
-        coins:
+        coin:
           type: 'integer'
         createTime:
           type: 'string'
