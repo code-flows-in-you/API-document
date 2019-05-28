@@ -3,7 +3,7 @@ info:
   description: 'SpareMoney API Document'
   version: '1.0.0'
   title: 'SpareMoney'
-host: '127.0.0.1:8000'
+host: '118.89.65.154:8765'
 basePath: '/'
 
 tags:
