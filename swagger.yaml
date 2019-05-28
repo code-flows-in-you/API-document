@@ -791,12 +791,12 @@ definitions:
           type: 'string'
         description:
           type: 'string'
-        type: 
-          type: 'string'
-          enum:
-          - 'questionnaire'
-        creator:
-          type: 'integer'
+        # type: 
+        #   type: 'string'
+        #   enum:
+        #   - 'questionnaire'
+        # creator:
+        #   type: 'integer'
         coin:
           type: 'integer'
         createTime:
@@ -900,12 +900,12 @@ definitions:
           type: 'string'
         description:
           type: 'string'
-        type: 
-          type: 'string'
-          enum:
-          - 'qa'
-        creator:
-          type: 'integer'
+        # type: 
+        #   type: 'string'
+        #   enum:
+        #   - 'qa'
+        # creator:
+        #   type: 'integer'
         coin:
           type: 'integer'
         createTime:
