@@ -514,7 +514,7 @@ paths:
   #         schema:
   #           $ref: '#/definitions/ErrorResponse'
 
-  /qa/answer/{qaid}:
+  /qa/{aid}/{qaid}:
     put:
       tags:
       - 'Question & Answer'
@@ -522,6 +522,11 @@ paths:
       produces:
       - 'application/json'
       parameters:
+      - name: 'aid'
+        in: 'path'
+        required: true
+        description: '懂了么的aid'
+        type: 'integer'
       - name: 'qaid'
         in: 'path'
         required: true
