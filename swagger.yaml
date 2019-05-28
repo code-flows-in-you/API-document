@@ -969,6 +969,8 @@ definitions:
     properties:
       user:
         type: 'string'
+        enum:
+        - 'UserID@Nickname'
       aid:
         type: 'integer'
       qaid:
@@ -985,6 +987,8 @@ definitions:
     properties:
       user:
         type: 'string'
+        enum:
+        - 'UserID@Nickname'
       aid:
         type: 'integer'
       pid:
