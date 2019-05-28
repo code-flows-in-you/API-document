@@ -332,7 +332,7 @@ paths:
     delete:
       tags:
       - 'Questionnaire'
-      summary: '删除问卷'
+      summary: '删除自己创建的问卷'
       produces:
       - 'application/json'
       parameters:
@@ -450,7 +450,7 @@ paths:
     delete:
       tags:
       - 'Question & Answer'
-      summary: '删除懂了么任务'
+      summary: '删除自己创建的懂了么'
       produces:
       - 'application/json'
       parameters:
