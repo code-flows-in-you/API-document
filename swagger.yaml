@@ -887,10 +887,13 @@ definitions:
 
 
   QuestionnaireAnsRequest:
-    type: 'array'
-    items:
-      allOf:
-      - $ref: '#/definitions/AnswerRequest'
+    type: 'object'
+    properties:
+      answers:
+        type: 'array'
+        items:
+          allOf:
+          - $ref: '#/definitions/AnswerRequest'
 
   QAInfoRequest:
     allOf:
