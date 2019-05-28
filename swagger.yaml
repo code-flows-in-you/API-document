@@ -589,6 +589,20 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
 
+    delete:
+      tags:
+      - 'Coin'
+      summary: '不小心弄丢50闲钱'
+      responses:
+        200:
+          description: 'ok, 返回闲钱数'
+          schema:
+            $ref: '#/definitions/CoinResponse'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
   /coin/{uid}:
     post:
       tags:
@@ -953,11 +967,13 @@ definitions:
   QAnswerResponse:
     type: 'object'
     properties:
-      uid:
-        type: 'integer'
+      user:
+        type: 'string'
       aid:
         type: 'integer'
       qaid:
+        type: 'integer'
+      pid:
         type: 'integer'
       answer:
         type: 'string'
@@ -967,13 +983,15 @@ definitions:
   QAnswerBestResponse:
     type: 'object'
     properties:
-      uid:
-        type: 'integer'
+      user:
+        type: 'string'
       aid:
+        type: 'integer'
+      pid:
         type: 'integer'
       answer:
         type: 'string'
-      time:
+      timestamp:
         type: 'string'
 
   QAnswerInfoRequest:
@@ -1011,7 +1029,7 @@ definitions:
         best:
           allOf:
           - $ref: '#/definitions/QAnswerBestResponse'
-        answer:
+        answers:
           type: 'array'
           items:
             allOf:
