@@ -43,10 +43,17 @@ paths:
         type: 'string'
         description: '密码'
         required: true
+      # - in: 'formData'
+      #   name: 'class'
+      #   type: 'integer'
+      #   description: '学生/组织'
+      #   required: true
       - in: 'formData'
-        name: 'class'
-        type: 'integer'
-        description: '学生/组织'
+        name: 'gender'
+        type: 'string'
+        enum:
+        - 'male/female'
+        description: '性别'
         required: true
       - in: 'formData'
         name: 'nickname'
@@ -92,8 +99,12 @@ paths:
           properties:
             # password:
             #   type: 'string'
-            class:
-              type: 'integer'
+            # class:
+            #   type: 'integer'
+            gender:
+              type: 'string'
+              enum:
+              - 'male/female'
             nickname:
               type: 'string'
             grade:
@@ -103,6 +114,8 @@ paths:
             major:
               type: 'string'
             studentID:
+              type: 'string'
+            realname:
               type: 'string'
 
       responses:
@@ -640,21 +653,25 @@ definitions:
   User:
     type: 'object'
     properties:
-      email:
+      Email:
         type: 'string'
-      class:
-        type: 'integer'
-      nickname:
+      # class:
+      #   type: 'integer'
+      Gender:
         type: 'string'
-      avatar:
+      Nickname:
         type: 'string'
-      grade:
+      Avatar:
         type: 'string'
-      college:
+      Grade:
         type: 'string'
-      major:
+      College:
         type: 'string'
-      studentID:
+      Major:
+        type: 'string'
+      StudentID:
+        type: 'string'
+      RealName:
         type: 'string'
 
   UserInfoResponse:
