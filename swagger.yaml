@@ -293,6 +293,78 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
 
+  /assignment/questionnaire:
+    get:
+      tags:
+      - 'Assignment'
+      summary: '获取最近20个问卷'
+      responses:
+        200:
+          description: 'ok'
+          schema:
+            $ref: '#/definitions/AssignmentQInfoResponse'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /assignment/questionnaire/{pages}:
+    get:
+      tags:
+      - 'Assignment'
+      summary: '获取第pages页的20个问卷'
+      parameters:
+      - name: 'pages'
+        in: 'path'
+        required: true
+        description: '页数'
+        type: 'integer'
+      responses:
+        200:
+          description: 'ok'
+          schema:
+            $ref: '#/definitions/AssignmentQInfoResponse'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /assignment/qa:
+    get:
+      tags:
+      - 'Assignment'
+      summary: '获取最近20个懂了么'
+      responses:
+        200:
+          description: 'ok'
+          schema:
+            $ref: '#/definitions/AssignmentQAInfoResponse'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
+  /assignment/qa/{pages}:
+    get:
+      tags:
+      - 'Assignment'
+      summary: '获取第pages页的20个懂了么'
+      parameters:
+      - name: 'pages'
+        in: 'path'
+        required: true
+        description: '页数'
+        type: 'integer'
+      responses:
+        200:
+          description: 'ok'
+          schema:
+            $ref: '#/definitions/AssignmentQAInfoResponse'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
   /questionnaire/{aid}:
     get:
       tags:
@@ -715,6 +787,65 @@ definitions:
         type: 'string'
 
   AssignmentInfoResponse:
+    type: 'object'
+    properties:
+      assignments:
+        type: 'array'
+        items:
+          type: 'object'
+          properties:
+            title:
+              type: 'string'
+            description:
+              type: 'string'
+            type: 
+              type: 'string'
+              enum:
+              - 'questionnaire'
+              - 'qa'
+            aid:
+              type: 'integer'
+            creator:
+              type: 'string'
+            coin:
+              type: 'integer'
+            createTime:
+              type: 'string'
+            startTime:
+              type: 'string'
+            endTime:
+              type: 'string'
+
+  AssignmentQInfoResponse:
+    type: 'object'
+    properties:
+      assignments:
+        type: 'array'
+        items:
+          type: 'object'
+          properties:
+            title:
+              type: 'string'
+            description:
+              type: 'string'
+            type: 
+              type: 'string'
+              enum:
+              - 'questionnaire'
+            aid:
+              type: 'integer'
+            creator:
+              type: 'string'
+            coin:
+              type: 'integer'
+            createTime:
+              type: 'string'
+            startTime:
+              type: 'string'
+            endTime:
+              type: 'string'
+
+  AssignmentQAInfoResponse:
     type: 'object'
     properties:
       assignments:
