@@ -749,7 +749,7 @@ definitions:
   UserInfoResponse:
     allOf:
     - properties:
-        uid:
+        Uid:
           type: 'integer'
     - $ref: '#/definitions/User'
 
@@ -838,6 +838,8 @@ definitions:
               type: 'string'
             coin:
               type: 'integer'
+            unit:
+              type: 'integer'
             createTime:
               type: 'string'
             startTime:
@@ -860,7 +862,6 @@ definitions:
             type: 
               type: 'string'
               enum:
-              - 'questionnaire'
               - 'qa'
             aid:
               type: 'integer'
