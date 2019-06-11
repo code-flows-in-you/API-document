@@ -789,6 +789,8 @@ definitions:
   AssignmentInfoResponse:
     type: 'object'
     properties:
+      asgCount:
+        type: 'integer'
       assignments:
         type: 'array'
         items:
@@ -815,10 +817,16 @@ definitions:
               type: 'string'
             endTime:
               type: 'string'
+            answerCount:
+              type: 'integer'
+            bestCount:
+              type: 'integer'
 
   AssignmentQInfoResponse:
     type: 'object'
     properties:
+      asgCount:
+        type: 'integer'
       assignments:
         type: 'array'
         items:
@@ -846,10 +854,16 @@ definitions:
               type: 'string'
             endTime:
               type: 'string'
+            answerCount:
+              type: 'integer'
+            bestCount:
+              type: 'integer'
 
   AssignmentQAInfoResponse:
     type: 'object'
     properties:
+      asgCount:
+        type: 'integer'
       assignments:
         type: 'array'
         items:
@@ -875,6 +889,10 @@ definitions:
               type: 'string'
             endTime:
               type: 'string'
+            answerCount:
+              type: 'integer'
+            bestCount:
+              type: 'integer'
 
   Question:
     type: 'object'
