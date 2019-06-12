@@ -34,32 +34,22 @@ paths:
       - 'application/json'
       parameters:
       - in: 'body'
-        name: 'email'
-        type: 'string'
-        description: '邮箱'
+        name: 'body'
+        description: '账户注册必要信息'
         required: true
-      - in: 'body'
-        name: 'password'
-        type: 'string'
-        description: '密码'
-        required: true
-      # - in: 'body'
-      #   name: 'class'
-      #   type: 'integer'
-      #   description: '学生/组织'
-      #   required: true
-      - in: 'body'
-        name: 'gender'
-        type: 'string'
-        enum:
-        - 'male/female'
-        description: '性别'
-        required: true
-      - in: 'body'
-        name: 'nickname'
-        type: 'string'
-        description: '昵称'
-        required: true
+        schema:
+          type: 'object'
+          properties:
+            email:
+              type: 'string'
+            password:
+              type: 'string'
+            gender:
+              type: 'string'
+              enum:
+              - 'male/female'
+            nickname:
+              type: 'string'
       responses:
         200:
           description: 'ok, 返回uid信息'
