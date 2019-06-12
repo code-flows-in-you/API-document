@@ -29,33 +29,33 @@ paths:
       - 'Account'
       summary: '注册账户'
       consumes:
-      - 'multipart/form-data'
+      - 'application/json'
       produces:
       - 'application/json'
       parameters:
-      - in: 'formData'
+      - in: 'body'
         name: 'email'
         type: 'string'
         description: '邮箱'
         required: true
-      - in: 'formData'
+      - in: 'body'
         name: 'password'
         type: 'string'
         description: '密码'
         required: true
-      # - in: 'formData'
+      # - in: 'body'
       #   name: 'class'
       #   type: 'integer'
       #   description: '学生/组织'
       #   required: true
-      - in: 'formData'
+      - in: 'body'
         name: 'gender'
         type: 'string'
         enum:
         - 'male/female'
         description: '性别'
         required: true
-      - in: 'formData'
+      - in: 'body'
         name: 'nickname'
         type: 'string'
         description: '昵称'
