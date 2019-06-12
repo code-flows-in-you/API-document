@@ -114,7 +114,7 @@ paths:
             major:
               type: 'string'
             studentID:
-              type: 'string'
+              type: 'integer'
             realname:
               type: 'string'
 
@@ -742,7 +742,7 @@ definitions:
       Major:
         type: 'string'
       StudentID:
-        type: 'string'
+        type: 'integer'
       RealName:
         type: 'string'
 
@@ -769,7 +769,7 @@ definitions:
       major:
         type: 'string'
       studentID:
-        type: 'string'
+        type: 'integer'
 
 
   ImageURLResponse:
