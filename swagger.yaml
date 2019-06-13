@@ -42,19 +42,24 @@ paths:
           properties:
             email:
               type: 'string'
+              example: 'mmm@qq.com'
             password:
               type: 'string'
+              example: '123456'
             gender:
               type: 'string'
               enum:
-              - 'male/female'
+              - 'male'
+              - 'female'
             nickname:
               type: 'string'
+              example: 'ljm'
       responses:
         200:
           description: 'ok, 返回uid信息'
           schema:
-            $ref: '#/definitions/IdResponse'
+            $ref: '#/definitions/RegisterResponse'
+          
         400:
           description: 'fail'
           schema:
@@ -94,19 +99,26 @@ paths:
             gender:
               type: 'string'
               enum:
-              - 'male/female'
+              - 'male'
+              - 'female'
             nickname:
               type: 'string'
+              example: 'ljm'
             grade:
               type: 'string'
+              example: '2016'
             college:
               type: 'string'
+              example: 'sysu'
             major:
               type: 'string'
+              example: 'SE'
             studentID:
               type: 'integer'
+              example: 16340115
             realname:
               type: 'string'
+              example: 'ljm'
 
       responses:
         200:
@@ -131,8 +143,10 @@ paths:
           properties:
             old_password:
               type: 'string'
+              example: '123456'
             new_password:
               type: 'string'
+              example: '1234567'
 
       responses:
         200:
@@ -174,6 +188,12 @@ paths:
       tags:
       - 'Account'
       summary: '获取id为uid的账户信息'
+      parameters:
+      - name: 'uid'
+        in: 'path'
+        required: true
+        description: 'uid'
+        type: 'integer'
       responses:
         200:
           description: 'ok'
@@ -717,31 +737,47 @@ definitions:
     properties:
       Email:
         type: 'string'
+        example: '173717610@qq.com'
       # class:
       #   type: 'integer'
       Gender:
         type: 'string'
+        example: 'male'
       Nickname:
         type: 'string'
+        example: 'ljm'
       Avatar:
         type: 'string'
+        example: '/media/avatar/default.jpg'
+        description: "头像的url,通过118.89.65.154:8765/media/avatar/default.jpg访问"
       Grade:
         type: 'string'
+        example: '2018'
       College:
         type: 'string'
+        example: 'sysu'
       Major:
         type: 'string'
+        example: 'SE'
       StudentID:
         type: 'integer'
+        example: 16340115
       RealName:
         type: 'string'
+        example: 'ljm'
 
-  UserInfoResponse:
+  UserInfo:
     allOf:
     - properties:
         Uid:
           type: 'integer'
+          example: 4
     - $ref: '#/definitions/User'
+    
+  UserInfoResponse:
+    properties:
+      data:
+        $ref: '#/definitions/UserInfo'
 
   OtherUserInfoResponse:
     type: 'object'
@@ -759,7 +795,7 @@ definitions:
       major:
         type: 'string'
       studentID:
-        type: 'integer'
+        type: 'string'
 
 
   ImageURLResponse:
@@ -767,20 +803,26 @@ definitions:
     properties:
       url:
         type: 'string'
+        example: '/media/avatar/20190612045125_87.jpg'
+        description: "头像的url,通过118.89.65.154:8765/media/avatar/20190612045125_87.jpg访问"
 
   LoginRequest:
     type: 'object'
     properties:
       email:
         type: 'string'
+        example: 'mmm@qq.com'
       password:
         type: 'string'
+        example: '123456'
 
   AssignmentInfoResponse:
     type: 'object'
     properties:
       asgCount:
         type: 'integer'
+        example: 1
+        description: "所有页的总份数，可以用于分页"
       assignments:
         type: 'array'
         items:
@@ -788,35 +830,83 @@ definitions:
           properties:
             title:
               type: 'string'
+              example: 'Vue怎么写'
             description:
               type: 'string'
+              example: '请教教我写Vue'
             type: 
               type: 'string'
               enum:
               - 'questionnaire'
               - 'qa'
+              example: 'qa'
             aid:
               type: 'integer'
+              example: 1
+              description: "对应的任务id"
             creator:
               type: 'string'
+              example: 'm'
             coin:
               type: 'integer'
+              example: 99
+              description: "总价"
+            unit:
+              type: 'integer'
+              example: 5  
+              description: "单价,与QA无关"
             createTime:
               type: 'string'
+              example: "2019-06-11 20:44:21"
             startTime:
               type: 'string'
+              example: "2019-06-11 21:45:21"
             endTime:
               type: 'string'
+              example: "2020-06-12 20:44:21"
             answerCount:
               type: 'integer'
+              example: 2
+              description: "QA答案的数量，问卷可以不管"
             bestCount:
               type: 'integer'
+              example: 1
+              description: "0或1，是否有最佳答案，问卷可以不管"
+        example:
+          - title: 'Vue怎么写'
+            description: '请教教我写Vue'
+            type: 'qa'
+            aid: 1
+            creator: 'm'
+            coin: 99
+            unit: 5  
+            createTime: "2019-06-11 20:44:21"
+            startTime: "2019-06-11 21:45:21"
+            endTime: "2020-06-12 20:44:21"
+            answerCount: 2
+            bestCount: 1
+          - title: '定向越野报名表'
+            description: 'sdcs定向越野'
+            type: 'questionnaire'
+            aid: 2
+            creator: 'm'
+            coin: 100
+            unit: 5  
+            createTime: "2019-06-11 20:44:21"
+            startTime: "2019-06-11 21:45:21"
+            endTime: "2020-06-13 20:44:21"
+            answerCount: 0
+            bestCount: 0
+
+  
 
   AssignmentQInfoResponse:
     type: 'object'
     properties:
       asgCount:
         type: 'integer'
+        example: 2
+        description: "所有页里问卷的总份数，可以用于分页"
       assignments:
         type: 'array'
         items:
@@ -824,36 +914,79 @@ definitions:
           properties:
             title:
               type: 'string'
+              example: '定向越野报名表'
             description:
               type: 'string'
+              example: 'sdcs定向越野'
             type: 
               type: 'string'
               enum:
               - 'questionnaire'
             aid:
               type: 'integer'
+              example: 2
+              description: "对应的任务id"
             creator:
               type: 'string'
+              example: 'm'
             coin:
               type: 'integer'
+              example: 100
+              description: "总价"
             unit:
               type: 'integer'
+              example: 5  
+              description: "单价"
             createTime:
               type: 'string'
+              example: "2019-06-11 20:44:21"
             startTime:
               type: 'string'
+              example: "2019-06-11 21:45:21"
             endTime:
               type: 'string'
+              example: "2020-06-11 20:44:21"
             answerCount:
               type: 'integer'
+              example: 0
+              description: "QA答案的数量，问卷可以不管"
             bestCount:
               type: 'integer'
+              example: 0
+              description: "0或1，是否有最佳答案，问卷可以不管"
+        example:
+          - title: '定向越野报名表2'
+            description: 'sdcs定向越野2'
+            type: 'questionnaire'
+            aid: 5
+            creator: 'm'
+            coin: 200
+            unit: 5  
+            createTime: "2019-06-11 20:44:21"
+            startTime: "2019-06-11 21:45:21"
+            endTime: "2020-06-12 20:44:21"
+            answerCount: 0
+            bestCount: 0
+          - title: '定向越野报名表'
+            description: 'sdcs定向越野'
+            type: 'questionnaire'
+            aid: 2
+            creator: 'm'
+            coin: 100
+            unit: 5  
+            createTime: "2019-06-11 20:44:21"
+            startTime: "2019-06-11 21:45:21"
+            endTime: "2020-06-13 20:44:21"
+            answerCount: 0
+            bestCount: 0
 
   AssignmentQAInfoResponse:
     type: 'object'
     properties:
       asgCount:
         type: 'integer'
+        example: 1
+        description: "所有页里问卷的总份数，可以用于分页"
       assignments:
         type: 'array'
         items:
@@ -861,76 +994,136 @@ definitions:
           properties:
             title:
               type: 'string'
+              #example: 'Vue怎么写'
             description:
               type: 'string'
+              #example: '请教教我写Vue'
             type: 
               type: 'string'
               enum:
               - 'qa'
             aid:
               type: 'integer'
+              #example: 1
+              description: "对应的任务id"
             creator:
               type: 'string'
+              #example: 'm'
             coin:
               type: 'integer'
+              #example: 99
+              description: "总价"
+            unit:
+              type: 'integer'
+              #example: 5  
+              description: "单价,与QA无关"
             createTime:
               type: 'string'
+              #example: "2019-06-11 20:44:21"
             startTime:
               type: 'string'
+              #example: "2019-06-11 21:45:21"
             endTime:
               type: 'string'
+              #example: "2020-06-11 20:44:21"
             answerCount:
               type: 'integer'
+              #example: 2
+              description: "QA答案的数量，问卷可以不管"
             bestCount:
               type: 'integer'
+              #example: 1
+              description: "0或1，是否有最佳答案，问卷可以不管"
+        example:
+          - title: 'Vue怎么写'
+            description: '请教教我写Vue'
+            type: 'qa'
+            aid: 1
+            creator: 'm'
+            coin: 99
+            unit: 5  
+            createTime: "2019-06-11 20:44:21"
+            startTime: "2019-06-11 21:45:21"
+            endTime: "2020-06-12 20:44:21"
+            answerCount: 2
+            bestCount: 1
+          - title: 'python怎么写'
+            description: '请教教我写python'
+            type: 'qa'
+            aid: 4
+            creator: 'm'
+            coin: 100
+            unit: 5  
+            createTime: "2019-06-11 20:44:21"
+            startTime: "2019-06-11 21:45:21"
+            endTime: "2020-06-13 20:44:21"
+            answerCount: 4
+            bestCount: 0
 
   Question:
     type: 'object'
     properties:
       qid:
         type: 'integer'
-      titie:
+        example: 1
+      title:
         type: 'string'
+        example: '性别'
       aid:
         type: 'integer'
+        example: 2
+        description: "对应的任务id"
       type:
         type: 'string'
         enum:
         - 'single'
         - 'multi'
         - 'input'
+        example: 'input'
 
   QuestionRequest:
     type: 'object'
     properties:
-      titie:
+      title:
         type: 'string'
+        example: '李泓睿是男的还是女的'
       type:
         type: 'string'
         enum:
         - 'single'
         - 'multi'
         - 'input'
+        example: 'single'
 
   Option:
     type: 'object'
     properties:
       oid:
         type: 'integer'
+        #example: 1
       value:
         type: 'string'
+        #example: '男'
       qid:
         type: 'integer'
+        #example: 1
+        description: '对应的问题id'
       aid:
         type: 'integer'
+        #example: 2
+        description: "对应的任务id"
 
   OptionRequest:
     type: 'object'
     properties:
       questionIndex:
         type: 'integer'
+        description: '对应的问题在数组里的下标，从0开始'
       value:
         type: 'string'
+        #example: '男的'
+        description: '对于填空题，这个字段无效。
+        对于选择题，这个字段就是选项的内容'
 
   Answer:
     type: 'object'
@@ -953,14 +1146,24 @@ definitions:
     properties:
       uid:
         type: 'integer'
+        #example: 4
+        description: '对应的用户id'
       qid:
         type: 'integer'
+        #example: 1
+        description: '对应的问题id'
       oid:
         type: 'integer'
+        #example: 1
+        description: '答案的对应的选项id,用于单选和多选'
       value:
         type: 'string'
+        #example: 'ljm'
+        description: '填空题输入的值'
       timestamp:
         type: 'string'
+        #example: "2019-06-13 20:44:22"
+        description: '填写时间'
   
   QuestionnaireInfoRequest:
     allOf:
@@ -968,8 +1171,10 @@ definitions:
     - properties:
         title:
           type: 'string'
+          example: '李泓睿知识大全'
         description:
           type: 'string'
+          example: '关于李泓睿的问卷'
         # type: 
         #   type: 'string'
         #   enum:
@@ -977,25 +1182,40 @@ definitions:
         # creator:
         #   type: 'integer'
         coin:
+          description: '这个是单价，别填错了'
           type: 'integer'
+          example: 5
         copy:
+          description: '份数'
           type: 'integer'
+          example: 100
         createTime:
           type: 'string'
+          example: "2019-06-13 20:44:22"
         startTime:
           type: 'string'
+          example: "2019-06-14 20:44:22"
         endTime:
           type: 'string'
+          example: "2019-06-15 20:44:22"
         questions:
           type: 'array'
           items:
             allOf:
             - $ref: '#/definitions/QuestionRequest'
+
         options:
+          description: '填空题也要添加选项字段'
           type: 'array'
           items:
             allOf:
             - $ref: '#/definitions/OptionRequest'
+          example:
+            - questionIndex: 0
+              value: '男的'
+            - questionIndex: 0
+              value: '女的'
+
     # - properties:
     #     data:
     #       type: 'array'
@@ -1015,43 +1235,92 @@ definitions:
     - properties:
         title:
           type: 'string'
+          example: '定向越野报名表'
         description:
           type: 'string'
+          example: 'sdcs定向越野'
         type: 
           type: 'string'
           enum:
           - 'questionnaire'
-          - 'qa'
         aid:
           type: 'integer'
+          example: 2
+          description: "对应的任务id"
         creator:
           type: 'string'
+          example: 'm'
         coin:
           type: 'integer'
+          example: 100
+          description: "总价"
         unit:
           type: 'integer'
+          example: 5  
+          description: "单价"
         createTime:
           type: 'string'
+          example: "2019-06-13 20:44:21"
         startTime:
           type: 'string'
+          example: "2019-06-14 21:45:21"
         endTime:
           type: 'string'
+          example: "2020-06-15 20:44:21"
+   
         questions:
           type: 'array'
           items:
             allOf:
             - $ref: '#/definitions/Question'
+          example:
+            - qid: 1
+              title: '姓名'
+              aid: 2
+              type: 'input'
+            - qid: 2
+              title: '性别'
+              aid: 2
+              type: 'single'
+            - qid: 3
+              title: '时间'
+              aid: 2
+              type: 'multi'
         options:
           type: 'array'
           items:
             allOf:
             - $ref: '#/definitions/Option'
+          example:
+            - oid: 1
+              value: '0'
+              qid: 1
+              aid: 2
+            - oid: 2
+              value: '男'
+              qid: 2
+              aid: 2
+            - oid: 3
+              value: '女'
+              qid: 2
+              aid: 2
+            - oid: 4
+              value: '周六'
+              qid: 3
+              aid: 2
+            - oid: 5
+              value: '周日'
+              qid: 3
+              aid: 2
+
+
 
   AnswerInfoResponse:
     allOf:
       - $ref: '#/definitions/QuestionnaireInfoResponse'
       - properties:
           oid1:
+            description: '这里的oid1指的是第一个每个对应选项的oid数字'
             type: 'array'
             items:
               type: 'object'
@@ -1062,8 +1331,10 @@ definitions:
                   - 'UserID@Nickname'
                 value:
                   type: 'string'
+                  example: "ljm"
                 timestamp:
                   type: 'string'
+                  example: "2019-06-12 21:45:21"
           oid2:
             type: 'array'
             items:
@@ -1073,10 +1344,13 @@ definitions:
                   type: 'string'
                   enum:
                   - 'UserID@Nickname'
+                  example: '4@ljm'
                 value:
                   type: 'string'
+                  example: "0"
                 timestamp:
                   type: 'string'
+                  example: "2019-06-12 21:45:21"
 
 
   QuestionnaireAnsRequest:
@@ -1087,6 +1361,22 @@ definitions:
         items:
           allOf:
           - $ref: '#/definitions/AnswerRequest'
+        example:
+          - uid: 4
+            qid: 1
+            oid: 1
+            value: 'ljm'
+            timestamp: "2019-06-13 20:44:22"
+          - uid: 4
+            qid: 2
+            oid: 2
+            value: '0'
+            timestamp: "2019-06-13 20:44:22"
+          - uid: 4
+            qid: 3
+            oid: 4
+            value: '0'
+            timestamp: "2019-06-13 20:44:22"
 
   QAInfoRequest:
     allOf:
@@ -1152,12 +1442,16 @@ definitions:
         - 'UserID@Nickname'
       aid:
         type: 'integer'
+        example: 1
       pid:
         type: 'integer'
+        example: 1
       answer:
         type: 'string'
+        example: 'www.google.com'
       timestamp:
         type: 'string'
+        example: "2019-06-21 20:59:21"
 
   QAnswerInfoRequest:
     type: 'array'
@@ -1171,24 +1465,37 @@ definitions:
     - properties:
         title:
           type: 'string'
+          example: 'Vue怎么写'
         description:
           type: 'string'
+          example: '请教教我写Vue'
         type: 
           type: 'string'
           enum:
           - 'qa'
         aid:
           type: 'integer'
+          example: 1
+          description: "对应的任务id"
         creator:
           type: 'string'
+          example: 'm'
+        coin:
+          type: 'integer'
+          example: 99
+          description: "总价"
         createTime:
           type: 'string'
+          example: "2019-06-11 20:44:21"
         startTime:
           type: 'string'
+          example: "2019-06-11 21:45:21"
         endTime:
           type: 'string'
+          example: "2020-06-12 20:44:21"
         pid:
           type: 'integer'
+          
         detail:
           type: 'string'
         best:
@@ -1199,18 +1506,41 @@ definitions:
           items:
             allOf:
             - $ref: '#/definitions/QAnswerResponse'
+          example:
+            - user: 'UserID@Nickname'
+              aid: 1
+              qaid: 1
+              pid: 1
+              answer: 'www.google.com'
+              timestamp: "2019-06-21 20:59:21"
+            - user: '4@ljm'
+              aid: 1
+              qaid: 2
+              pid: 1
+              answer: '一天速成'
+              timestamp: "2019-06-21 20:59:21"
 
   IdResponse:
     type: 'object'
     properties:
       id:
         type: 'integer'
+        example: 5
+        
+  RegisterResponse:
+    allOf:
+     - properties:
+        msg:
+          type: 'string'
+          example: 'register successfully'
+     - $ref: '#/definitions/IdResponse'
 
   CoinResponse:
     type: 'object'
     properties:
       coin:
         type: 'integer'
+        example: 100
 
   CoinRequest:
     type: 'object'
