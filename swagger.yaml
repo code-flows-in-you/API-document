@@ -535,8 +535,8 @@ paths:
       responses:
         200:
           description: 'ok 返回回答qaid信息'
-          schema:
-            $ref: '#/definitions/IdResponse'
+          #schema:
+            #$ref: '#/definitions/IdResponse'
         400:
           description: 'fail'
           schema:
@@ -562,7 +562,7 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
 
-  /qa:
+  /qa/:
     post:
       tags:
       - 'Question & Answer'
@@ -1384,8 +1384,10 @@ definitions:
     - properties:
         title:
           type: 'string'
+          example: "李泓睿是谁"
         description:
           type: 'string'
+          example: "最近看到有关他的问卷，不知道此人是谁"
         # type: 
         #   type: 'string'
         #   enum:
@@ -1394,14 +1396,19 @@ definitions:
         #   type: 'integer'
         coin:
           type: 'integer'
+          example: 50
         createTime:
           type: 'string'
+          example: "2019-06-13 20:44:22"
         startTime:
           type: 'string'
+          example: "2019-06-14 20:44:22"
         endTime:
           type: 'string'
+          example: "2019-06-15 20:44:22"
         detail:
           type: 'string'
+          example: "呵呵呵"
 
   QAnswerRequest:
     type: 'object'
@@ -1410,10 +1417,13 @@ definitions:
       #   type: 'integer'
       pid:
         type: 'integer'
+        example: 1
       answer:
         type: 'string'
+        example: "李泓睿同学肯定会，问他吧"
       timestamp:
         type: 'string'
+        example: "2019-06-13 20:44:22"
 
   QAnswerResponse:
     type: 'object'
@@ -1495,9 +1505,11 @@ definitions:
           example: "2020-06-12 20:44:21"
         pid:
           type: 'integer'
-          
+          example: 1
+          description: "对应的问题id"
         detail:
           type: 'string'
+          example: "我是刚学Vue的同学, 希望有人能教教我Vue"
         best:
           allOf:
           - $ref: '#/definitions/QAnswerBestResponse'
