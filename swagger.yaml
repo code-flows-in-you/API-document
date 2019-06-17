@@ -872,6 +872,10 @@ definitions:
               type: 'integer'
               example: 1
               description: "0或1，是否有最佳答案，问卷可以不管"
+            copy:
+              type: 'integer'
+              example: 0
+              description: "问卷总共发布多少份，问答可以不管"            
         example:
           - title: 'Vue怎么写'
             description: '请教教我写Vue'
@@ -885,6 +889,7 @@ definitions:
             endTime: "2020-06-12 20:44:21"
             answerCount: 2
             bestCount: 1
+            copy: 0
           - title: '定向越野报名表'
             description: 'sdcs定向越野'
             type: 'questionnaire'
@@ -897,6 +902,7 @@ definitions:
             endTime: "2020-06-13 20:44:21"
             answerCount: 0
             bestCount: 0
+            copy: 20
 
   
 
@@ -954,6 +960,10 @@ definitions:
               type: 'integer'
               example: 0
               description: "0或1，是否有最佳答案，问卷可以不管"
+            copy:
+              type: 'integer'
+              example: 0
+              description: "问卷总共发布多少份，问答可以不管"   
         example:
           - title: '定向越野报名表2'
             description: 'sdcs定向越野2'
@@ -967,6 +977,7 @@ definitions:
             endTime: "2020-06-12 20:44:21"
             answerCount: 0
             bestCount: 0
+            copy: 20
           - title: '定向越野报名表'
             description: 'sdcs定向越野'
             type: 'questionnaire'
@@ -979,6 +990,7 @@ definitions:
             endTime: "2020-06-13 20:44:21"
             answerCount: 0
             bestCount: 0
+            copy: 100
 
   AssignmentQAInfoResponse:
     type: 'object'
@@ -1034,6 +1046,10 @@ definitions:
               type: 'integer'
               #example: 1
               description: "0或1，是否有最佳答案，问卷可以不管"
+            copy:
+              type: 'integer'
+              example: 0
+              description: "问卷总共发布多少份，问答可以不管"   
         example:
           - title: 'Vue怎么写'
             description: '请教教我写Vue'
@@ -1047,6 +1063,7 @@ definitions:
             endTime: "2020-06-12 20:44:21"
             answerCount: 2
             bestCount: 1
+            copy: 0
           - title: 'python怎么写'
             description: '请教教我写python'
             type: 'qa'
@@ -1059,6 +1076,7 @@ definitions:
             endTime: "2020-06-13 20:44:21"
             answerCount: 4
             bestCount: 0
+            copy: 0
 
   Question:
     type: 'object'
