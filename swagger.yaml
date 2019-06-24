@@ -375,6 +375,27 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
 
+  /assignment/self/{type}:
+    get:
+      tags:
+      - 'Assignment'
+      summary: '获取自身任务信息'
+      parameters:
+      - name: 'type'
+        in: 'path'
+        required: true
+        description: '类型, {"all", "questionnaire", "qa", "answer"}'
+        type: 'string'
+      responses:
+        200:
+          description: 'ok'
+          schema:
+            $ref: '#/definitions/AssignmentInfoResponse'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
   /questionnaire/{aid}:
     get:
       tags:
