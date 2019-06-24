@@ -745,6 +745,21 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
 
+  /coin/flow:
+    get:
+      tags:
+      - 'Coin'
+      summary: '获取闲钱去向细则'
+      responses:
+        200:
+          description: 'ok'
+          schema:
+            $ref: '#/definitions/CoinFlowResponse'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
 definitions:
 
   ErrorResponse:
@@ -1598,6 +1613,96 @@ definitions:
     properties:
       coin:
         type: 'integer'
+
+  CoinFlowResponse:
+    type: 'object'
+    properties:
+      flows:
+        type: 'array'
+        items:
+          type: 'object'
+          properties:
+            title:
+              type: 'string'
+              example: 'Vue怎么写'
+            description:
+              type: 'string'
+              example: '请教教我写Vue'
+            type: 
+              type: 'string'
+              enum:
+              - 'questionnaire'
+              - 'qa'
+              example: 'qa'
+            aid:
+              type: 'integer'
+              example: 1
+              description: "对应的任务id"
+            creator:
+              type: 'string'
+              example: 'm'
+            coin:
+              type: 'integer'
+              example: 99
+              description: "总价"
+            unit:
+              type: 'integer'
+              example: 5  
+              description: "单价,与QA无关"
+            createTime:
+              type: 'string'
+              example: "2019-06-11 20:44:21"
+            startTime:
+              type: 'string'
+              example: "2019-06-11 21:45:21"
+            endTime:
+              type: 'string'
+              example: "2020-06-12 20:44:21"
+            answerCount:
+              type: 'integer'
+              example: 2
+              description: "QA答案的数量，问卷可以不管"
+            bestCount:
+              type: 'integer'
+              example: 1
+              description: "0或1，是否有最佳答案，问卷可以不管"
+            copy:
+              type: 'integer'
+              example: 0
+              description: "问卷总共发布多少份，问答可以不管"
+            flow:
+              type: 'integer'
+              example: 1
+              description: '本次操作收支的闲钱数'
+        example:
+          - title: 'Vue怎么写'
+            description: '请教教我写Vue'
+            type: 'qa'
+            aid: 1
+            creator: 'm'
+            coin: 99
+            unit: 5  
+            createTime: "2019-06-11 20:44:21"
+            startTime: "2019-06-11 21:45:21"
+            endTime: "2020-06-12 20:44:21"
+            answerCount: 2
+            bestCount: 1
+            copy: 0
+            flow: -99
+          - title: '定向越野报名表'
+            description: 'sdcs定向越野'
+            type: 'questionnaire'
+            aid: 2
+            creator: 'm'
+            coin: 100
+            unit: 5  
+            createTime: "2019-06-11 20:44:21"
+            startTime: "2019-06-11 21:45:21"
+            endTime: "2020-06-13 20:44:21"
+            answerCount: 0
+            bestCount: 0
+            copy: 20
+            flow: 5
 
 externalDocs:
   description: 'api.yaml'
