@@ -271,7 +271,7 @@ paths:
     get:
       tags:
       - 'Assignment'
-      summary: '获取最近20个任务'
+      summary: '获取最近全部任务'
       responses:
         200:
           description: 'ok'
@@ -307,7 +307,7 @@ paths:
     get:
       tags:
       - 'Assignment'
-      summary: '获取最近20个问卷'
+      summary: '获取最近全部问卷'
       responses:
         200:
           description: 'ok'
@@ -343,7 +343,7 @@ paths:
     get:
       tags:
       - 'Assignment'
-      summary: '获取最近20个懂了么'
+      summary: '获取最近全部懂了么'
       responses:
         200:
           description: 'ok'
