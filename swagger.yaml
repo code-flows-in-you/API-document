@@ -1548,6 +1548,8 @@ definitions:
         creator:
           type: 'string'
           example: 'm'
+        avatar:
+          type: 'string'
         coin:
           type: 'integer'
           example: 99
