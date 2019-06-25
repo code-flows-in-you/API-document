@@ -1496,6 +1496,8 @@ definitions:
         type: 'string'
       timestamp:
         type: 'string'
+      avatar:
+        type: 'string'
 
   QAnswerBestResponse:
     type: 'object'
@@ -1516,6 +1518,8 @@ definitions:
       timestamp:
         type: 'string'
         example: "2019-06-21 20:59:21"
+      avatar:
+        type: 'string'
 
   QAnswerInfoRequest:
     type: 'array'
