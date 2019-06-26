@@ -96,27 +96,27 @@ paths:
             #   type: 'string'
             # class:
             #   type: 'integer'
-            gender:
+            Gender:
               type: 'string'
               enum:
               - 'male'
               - 'female'
-            nickname:
+            Nickname:
               type: 'string'
               example: 'ljm'
-            grade:
+            Grade:
               type: 'string'
               example: '2016'
-            college:
+            College:
               type: 'string'
               example: 'sysu'
-            major:
+            Major:
               type: 'string'
               example: 'SE'
-            studentID:
+            StudentID:
               type: 'integer'
               example: 16340115
-            realname:
+            RealName:
               type: 'string'
               example: 'ljm'
 
