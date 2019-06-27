@@ -709,7 +709,18 @@ paths:
     post:
       tags:
       - 'Coin'
-      summary: '充值100闲钱'
+      summary: '充值闲钱'
+      consumes:
+      - 'application/json'
+      produces:
+      - 'application/json'
+      parameters:
+      - in: 'body'
+        name: 'body'
+        description: '充值的闲钱数'
+        required: true
+        schema:
+          $ref: '#/definitions/RechargeRequest'
       responses:
         200:
           description: 'ok, 返回闲钱数'
@@ -1613,6 +1624,13 @@ definitions:
       id:
         type: 'integer'
         example: 5
+
+  RechargeRequest:
+    type: 'object'
+    properties:
+      coin:
+        type: 'integer'
+        example: '67'
         
   RegisterResponse:
     allOf:
