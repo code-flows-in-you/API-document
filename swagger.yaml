@@ -204,6 +204,21 @@ paths:
           schema:
             $ref: '#/definitions/ErrorResponse'
 
+  /account/self/amount:
+    get:
+      tags:
+      - 'Account'
+      summary: '获取id为uid的账户信息'
+      responses:
+        200:
+          description: 'ok'
+          schema:
+            $ref: '#/definitions/AmountResponse'
+        400:
+          description: 'fail'
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+
   /system/image:
     post:
       tags:
@@ -1619,6 +1634,22 @@ definitions:
     properties:
       coin:
         type: 'integer'
+
+  AmountResponse:
+    type: 'object'
+    properties:
+      answerCount:
+        type: 'integer'
+        example: 50
+      bestCount:
+        type: 'integer'
+        example: 1
+      assignmentCount:
+        type: 'integer'
+        example: 6
+      coin:
+        type: 'integer'
+        example: 11
 
   CoinFlowResponse:
     type: 'object'
